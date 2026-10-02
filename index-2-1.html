@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<script>
+(function(){try{var t=localStorage.getItem("clubs-theme");if(!t){t=(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light"}document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","light")}})();
+</script>
+<meta name="description" content="Clubs: small groups with a mentor and a goal. A more convenient, automated alternative to traditional internships. Join the waitlist.">
+<meta property="og:title" content="Clubs: join a club, make something real">
+<meta property="og:description" content="Small groups with a mentor and a goal, plus a verified record of your work. Join the waitlist.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 38 30'%3E%3Ccircle cx='11' cy='15' r='11' fill='%233B3BF5'/%3E%3Ccircle cx='19' cy='15' r='11' fill='%23FF6FA5'/%3E%3Ccircle cx='27' cy='15' r='11' fill='%23FFCF33'/%3E%3C/svg%3E">
+<title>Clubs: join a club, make something real</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#F6F7FF; --ink:#15152E; --muted:#5B5B78;
+  --surface:#FFFFFF; --line:#E1E2F0; --line2:#CFD0E6; --chip:#E6E7F3; --bar:#D8D9EC; --dash:#B9BAD8; --hover:rgba(255,255,255,.55);
+  --blue:#3B3BF5; --blue-accent:#3B3BF5; --blue-tint:#DDE0FF;
+  --sun:#FFCF33;  --sun-tint:#FFF0B8;
+  --pink:#FF6FA5; --pink-tint:#FFDAE8;
+  --mint:#5FDDB0; --mint-tint:#CFF7E7;
+  --deep:#15152E; --frame:#15152E; --err:#B3261E;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0E0F1F; --ink:#EEF0FF; --muted:#A9ABCB;
+  --surface:#191A33; --line:#2D2F52; --line2:#40437A; --chip:#2A2C4D; --bar:#2F3156; --dash:#4A4D7C; --hover:rgba(255,255,255,.07);
+  --blue-accent:#A0A0FF; --blue-tint:#262A6B;
+  --sun-tint:#4A3E12; --pink-tint:#4F2339; --mint-tint:#184638;
+  --deep:#060611; --frame:#3B3D6A; --err:#FF8A80;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'Figtree',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Bricolage Grotesque','Figtree',system-ui,sans-serif;font-weight:800;line-height:1.02;letter-spacing:-.025em}
+h2{font-size:clamp(2rem,4.6vw,3.2rem)}
+h3{font-size:1.35rem;line-height:1.15}
+p{max-width:60ch}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--blue-accent);outline-offset:3px}
+.dark :focus-visible,.blueband :focus-visible{outline-color:var(--sun)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+
+/* buttons */
+.btn{display:inline-block;font:600 1rem 'Figtree',system-ui,sans-serif;padding:14px 26px;border-radius:999px;border:0;background:var(--ink);color:var(--paper);cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--blue);color:#fff}
+.btn.light{background:#fff;color:#15152E}
+.btn.light:hover{background:var(--sun)}
+.btn.sun{background:var(--sun);color:#15152E}
+.btn.sun:hover{background:#fff}
+.btn.small{padding:10px 18px;font-size:.95rem}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:20px;padding-bottom:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:1.6rem;letter-spacing:-.03em}
+.nav nav{display:flex;gap:28px;font-weight:500}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{text-decoration:underline;text-underline-offset:5px}
+
+/* hero */
+.hero{padding:40px 0 88px}
+.hero h1{font-size:clamp(2.8rem,8.2vw,6.2rem);line-height:.96;letter-spacing:-.035em;max-width:11ch}
+.lede{font-size:1.25rem;margin-top:24px;max-width:46ch}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin-top:32px}
+.hero-cta span{color:var(--muted);font-size:.95rem}
+
+/* board (interactive finder) */
+.board{background:var(--surface);border-radius:40px 40px 40px 10px;padding:40px;margin-top:64px}
+.board h2{font-size:clamp(1.7rem,3.6vw,2.4rem)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{font:600 1rem 'Figtree',system-ui,sans-serif;padding:10px 20px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.chip:hover{background:var(--ink);color:var(--paper)}
+.chip[aria-pressed="true"].blue{background:var(--blue);border-color:var(--blue);color:#fff}
+.chip[aria-pressed="true"].sun{background:var(--sun);border-color:var(--sun);color:#15152E}
+.chip[aria-pressed="true"].pink{background:var(--pink);border-color:var(--pink);color:#15152E}
+.chip[aria-pressed="true"].mint{background:var(--mint);border-color:var(--mint);color:#15152E}
+.status{margin-top:22px;color:var(--muted);font-weight:500}
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+.club{padding:26px;display:flex;flex-direction:column;gap:10px;animation:deal .3s ease both}
+.club:nth-child(3n+1){border-radius:32px 32px 32px 8px}
+.club:nth-child(3n+2){border-radius:32px 8px 32px 32px}
+.club:nth-child(3n){border-radius:8px 32px 32px 32px}
+.club.blue{background:var(--blue-tint)}
+.club.sun{background:var(--sun-tint)}
+.club.pink{background:var(--pink-tint)}
+.club.mint{background:var(--mint-tint)}
+.club p{font-size:.98rem}
+.club .facts{color:var(--muted);font-size:.92rem}
+.club .foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px}
+.club .foot b{font-weight:600;font-size:.95rem}
+@keyframes deal{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+
+/* how it works */
+.blueband{background:var(--blue);color:#fff}
+.blueband h2{max-width:16ch}
+.steps{list-style:none;padding:0;margin-top:48px;display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
+.steps li{border-top:3px solid rgba(255,255,255,.55);padding-top:18px}
+.steps .n{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:2.6rem;line-height:1;display:block;margin-bottom:10px;color:var(--sun)}
+.steps h3{margin-bottom:8px}
+.steps p{font-size:.98rem;opacity:.95}
+
+/* trust */
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:44px}
+.trust-grid div{padding:4px 32px 4px 28px;border-left:3px solid var(--ink)}
+.trust-grid div:first-child{padding-left:0;border-left:0}
+.trust-grid h3{margin-bottom:8px}
+.trust-grid p{color:var(--muted)}
+
+/* app preview */
+.inside{background:var(--sun-tint)}
+.inside-grid{display:grid;grid-template-columns:1fr 340px;gap:56px;align-items:center;margin-top:44px}
+.tabs{display:flex;flex-direction:column;gap:6px}
+.tab{text-align:left;font:inherit;background:transparent;border:0;border-left:4px solid transparent;padding:14px 18px;cursor:pointer;color:var(--ink);border-radius:0 14px 14px 0}
+.tab strong{display:block;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:1.35rem;letter-spacing:-.02em}
+.tab span{display:none;color:var(--muted);margin-top:4px;max-width:44ch}
+.tab:hover{background:var(--hover)}
+.tab[aria-selected="true"]{border-left-color:var(--blue-accent);background:var(--surface)}
+.tab[aria-selected="true"] span{display:block}
+
+.phone{width:300px;height:620px;border:10px solid var(--frame);border-radius:44px;background:var(--paper);position:relative;overflow:hidden;margin:0 auto;font-size:13px;line-height:1.4}
+.ph-screen{display:none;position:absolute;inset:0 0 58px 0;overflow-y:auto;padding:26px 16px 18px}
+.ph-screen.on{display:block}
+.ph-h{font-size:1.5rem;margin-bottom:12px}
+.ph-nav{position:absolute;left:0;right:0;bottom:0;height:58px;display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-top:1px solid var(--line)}
+.ph-nav button{background:none;border:0;font:600 12px 'Figtree',system-ui,sans-serif;color:var(--muted);cursor:pointer}
+.ph-nav button[aria-current="true"]{color:var(--blue-accent)}
+.ph-search{width:100%;font:inherit;padding:10px 14px;border-radius:999px;border:1.5px solid var(--line2);background:var(--surface);color:var(--ink);margin-bottom:10px}
+.ph-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ph-chips span{padding:5px 11px;border-radius:999px;border:1.5px solid var(--ink);font-weight:600;font-size:12px}
+.ph-chips span.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.ph-item{padding:14px;margin-bottom:10px;display:flex;flex-direction:column;gap:3px}
+.ph-item:nth-child(odd){border-radius:20px 20px 20px 6px}
+.ph-item:nth-child(even){border-radius:20px 6px 20px 20px}
+.ph-item.blue{background:var(--blue-tint)}
+.ph-item.sun{background:var(--sun-tint)}
+.ph-item.pink{background:var(--pink-tint)}
+.ph-item b{font-size:14px}
+.ph-item small{color:var(--muted);font-size:12px}
+.ph-item em{font-style:normal;font-weight:600;margin-top:4px}
+.ph-hero{background:var(--blue-tint);border-radius:22px 22px 22px 6px;padding:16px;margin-bottom:14px}
+.ph-hero h3{font-size:1.25rem;margin-bottom:6px}
+.ph-mentor{display:flex;align-items:center;gap:10px;margin-top:12px}
+.av{width:34px;height:34px;border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:700;font-size:12px;flex:none;color:#15152E}
+.ph-list{list-style:none;padding:0;margin:8px 0 14px}
+.ph-list li{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.ph-list li span{color:var(--muted);font-weight:600}
+.ph-list li.now b{color:var(--blue-accent)}
+.bar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 0}
+.bar i{height:6px;border-radius:3px;background:var(--bar)}
+.bar i.f{background:var(--blue)}
+.ph-btn{width:100%;font:600 14px 'Figtree',system-ui,sans-serif;padding:12px;border-radius:999px;border:0;background:var(--ink);color:var(--paper);cursor:pointer}
+.ph-btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.ph-note{color:var(--muted);font-size:12px;margin:8px 0}
+.upload{background:var(--surface);border-radius:16px;padding:12px 14px;margin:8px 0 12px;border:1.5px dashed var(--dash)}
+.draft{background:var(--mint-tint);border-radius:18px 18px 18px 6px;padding:14px;margin:8px 0}
+.draft p[contenteditable="true"]{background:var(--surface);border-radius:8px;padding:6px;outline:2px solid var(--blue-accent)}
+.draft .tags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.draft .tags span{background:var(--surface);border-radius:999px;padding:3px 10px;font-weight:600;font-size:12px}
+.draft .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.draft .row .ph-btn{padding:10px;font-size:13px}
+.sent{background:var(--surface);border-radius:16px;padding:14px;margin-top:10px}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px}
+.pill.ok{background:var(--mint-tint)}
+.pill.mid{background:var(--sun-tint)}
+.pill.low{background:var(--chip)}
+.prof-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.prof-top .av{width:48px;height:48px;font-size:15px;background:var(--sun)}
+.entry{padding:12px 0;border-bottom:1px solid var(--line)}
+.entry b{display:block;font-size:14px}
+.entry small{display:block;color:var(--muted);margin:2px 0 6px}
+[hidden]{display:none !important}
+
+/* friends + work pair */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px}
+.pair > div{border-top:3px solid var(--ink);padding-top:20px}
+.pair h3{margin-bottom:10px;font-size:1.6rem}
+.pair p{color:var(--muted)}
+
+/* experience outline inside phone */
+.outline{background:var(--mint-tint);border-radius:18px 18px 18px 6px;padding:12px 14px;margin:12px 0}
+.outline p{margin-top:6px}
+
+/* plan switch inside phone */
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--chip);border-radius:999px;padding:3px;margin:10px 0}
+.seg button{border:0;background:none;padding:8px;border-radius:999px;font:600 12px 'Figtree',system-ui,sans-serif;cursor:pointer;color:var(--ink)}
+.seg button.on{background:var(--ink);color:var(--paper)}
+.ph-area{width:100%;font:inherit;padding:10px;border-radius:12px;border:1.5px solid var(--line2);margin:6px 0 10px;resize:none;background:var(--surface);color:var(--ink)}
+
+/* plans */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px}
+.plan{padding:36px}
+.plan.free{background:var(--surface);border-radius:32px 32px 32px 8px}
+.plan.plus{background:var(--blue);color:#fff;border-radius:32px 8px 32px 32px}
+.plan.plus :focus-visible{outline-color:var(--sun)}
+.plan p{margin-top:10px}
+.plan ul{list-style:none;padding:0;margin-top:18px}
+.plan li{padding:12px 0;font-weight:500;border-top:2px solid var(--line)}
+.plan.plus li{border-top-color:rgba(255,255,255,.4)}
+.plan .price{font-weight:600;margin-top:20px}
+.plan .btn{margin-top:18px}
+.plan-note{margin-top:22px;color:var(--muted)}
+
+/* price + coming soon */
+.plan .amt{font-family:'Bricolage Grotesque','Figtree',system-ui,sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.plan .price-note{font-size:.92rem;margin-top:8px}
+.soon{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px;margin-top:40px}
+.soon > div{border-top:3px solid var(--ink);padding-top:16px}
+.soon h3{font-size:1.2rem;margin-bottom:8px}
+.soon p{color:var(--muted);font-size:.98rem}
+
+/* tagline, theme toggle, logo */
+.logo svg{isolation:isolate}
+.tagline{font-family:'Bricolage Grotesque','Figtree',system-ui,sans-serif;font-weight:800;font-size:clamp(1.3rem,3vw,1.9rem);letter-spacing:-.02em;margin-top:22px}
+.nav-right{display:flex;align-items:center;gap:12px}
+.theme-toggle{font:600 .95rem 'Figtree',system-ui,sans-serif;padding:9px 16px;border-radius:999px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.theme-toggle:hover{background:var(--ink);color:var(--paper)}
+
+/* club team-up demo */
+.teamup{margin-top:36px;padding-top:28px;border-top:2px solid var(--line)}
+.tu-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.tu-head h3{font-size:1.6rem}
+.teamup > p{margin-top:10px;color:var(--muted)}
+.tu-thread{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.tu-row{display:flex;animation:deal .35s ease both}
+.tu-row.right{justify-content:flex-end}
+.tu-bub{max-width:min(480px,92%);padding:14px 18px}
+.tu-bub small{display:block;font-weight:600;color:var(--muted);margin-bottom:4px}
+.tu-bub.pink{background:var(--pink-tint);border-radius:24px 24px 24px 6px}
+.tu-bub.mint{background:var(--mint-tint);border-radius:24px 24px 6px 24px}
+.tu-row.left:not(.sent) .tu-bub{outline:2px dashed var(--line2);outline-offset:-2px}
+.tu-done{background:var(--sun-tint);border-radius:8px 24px 24px 24px;padding:16px 20px;display:flex;flex-direction:column;gap:2px;animation:deal .35s ease both}
+.tu-foot{margin-top:18px}
+
+/* partner companies */
+.partner-intro{margin-top:14px;color:var(--muted)}
+.partner-list{list-style:none;padding:0;margin:36px 0 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.partner-list li{padding:26px 22px;background:var(--surface);font-family:'Bricolage Grotesque','Figtree',system-ui,sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:-.02em;line-height:1.1}
+.partner-list li:nth-child(3n+1){border-radius:28px 28px 28px 8px}
+.partner-list li:nth-child(3n+2){border-radius:28px 8px 28px 28px}
+.partner-list li:nth-child(3n){border-radius:8px 28px 28px 28px}
+.partner-list li small{display:block;font:500 .9rem 'Figtree',system-ui,sans-serif;color:var(--muted);margin-top:6px;letter-spacing:0}
+.partner-list li.open{background:transparent;border:2px dashed var(--line2);color:var(--muted)}
+
+/* final cta stays readable in both themes */
+.final{color:#15152E}
+.final .btn{background:#15152E;color:#fff}
+.final .btn:hover{background:var(--blue)}
+
+/* parents */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.checks{list-style:none;padding:0}
+.checks li{padding:16px 0 16px 34px;border-bottom:2px solid var(--ink);position:relative;font-weight:500}
+.checks li:first-child{border-top:2px solid var(--ink)}
+.checks li::before{content:"";position:absolute;left:0;top:22px;width:18px;height:18px;border-radius:50%;background:var(--mint)}
+
+/* mentors */
+.dark{background:var(--deep);color:#fff}
+.dark .col p{color:#D9DAF0}
+.dark .col{padding-top:24px;border-top:3px solid var(--pink)}
+.dark .col + .col{border-top-color:var(--sun)}
+.dark .col h3{font-size:2rem;margin-bottom:14px}
+.dark .col .btn{margin-top:24px}
+.dark .col p + p{margin-top:12px}
+
+/* final cta */
+.final{background:var(--sun);text-align:left}
+.final h2{font-size:clamp(2.2rem,6vw,4.4rem);max-width:14ch}
+.final .btn{margin-top:30px}
+
+footer{padding:36px 0;font-size:.92rem;color:var(--muted)}
+
+/* dialog */
+dialog{border:0;border-radius:32px 32px 32px 8px;padding:0;width:calc(100% - 32px);max-width:440px;margin:auto;max-height:calc(100dvh - 32px);overflow:auto;background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(21,21,46,.55)}
+.dlg{padding:32px}
+.dlg h2{font-size:2rem;margin-bottom:8px;padding-right:70px}
+.dlg p{color:var(--muted)}
+.dlg form{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+.dlg label{display:flex;flex-direction:column;gap:6px;font-weight:600}
+.dlg input{font:inherit;padding:12px 14px;border-radius:14px;border:2px solid var(--line2);background:var(--surface);color:var(--ink)}
+.dlg input:focus{border-color:var(--blue-accent);outline:none}
+.dlg .note{font-size:.92rem}
+.dlg .x{color:var(--ink);position:absolute;top:20px;right:22px;background:none;border:0;font:600 1rem 'Figtree',system-ui,sans-serif;cursor:pointer;text-decoration:underline}
+.dlg{position:relative}
+.dlg select{font:inherit;padding:12px 14px;border-radius:14px;border:2px solid var(--line2);background:var(--surface);color:var(--ink)}
+.dlg select:focus{border-color:var(--blue-accent);outline:none}
+.dlg .consent{flex-direction:row;align-items:flex-start;gap:10px;font-weight:500}
+.dlg .consent input{width:20px;height:20px;margin-top:3px;flex:none;padding:0}
+.dlg .err{color:var(--err);font-weight:600}
+.dlg .privtext p{margin-top:12px;color:var(--ink)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.linkbtn{background:none;border:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer;padding:0}
+
+@media (max-width:900px){
+  section{padding:60px 0}
+  .nav nav{display:none}
+  .board{padding:26px;border-radius:30px 30px 30px 8px}
+  .steps{grid-template-columns:1fr;gap:22px}
+  .trust-grid{grid-template-columns:1fr;gap:26px}
+  .trust-grid div,.trust-grid div:first-child{border-left:0;padding:0 0 0 0;border-top:3px solid var(--ink);padding-top:16px}
+  .inside-grid{grid-template-columns:1fr;gap:36px}
+  .inside-grid .phone-wrap{order:-1}
+  .two{grid-template-columns:1fr;gap:32px}
+  .plans{grid-template-columns:1fr}
+  .pair{grid-template-columns:1fr;gap:28px}
+  .soon{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .soon{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .club{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="nav wrap" id="top">
+  <a class="logo" href="#top" aria-label="Clubs home">
+    <svg width="38" height="30" viewBox="0 0 38 30" aria-hidden="true">
+      <circle cx="11" cy="15" r="11" fill="#3B3BF5"/>
+      <circle cx="19" cy="15" r="11" fill="#FF6FA5" style="mix-blend-mode:multiply"/>
+      <circle cx="27" cy="15" r="11" fill="#FFCF33" style="mix-blend-mode:multiply"/>
+    </svg>
+    clubs
+  </a>
+  <nav aria-label="Main">
+    <a href="#discover">Find clubs</a>
+    <a href="#inside">Inside the app</a>
+    <a href="#plans">Clubs Intern</a>
+    <a href="#mentors">Mentors and partners</a>
+  </nav>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">Dark</button>
+    <button class="btn small" data-open="member">Join waitlist</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <h1>Join a club. Make something real.</h1>
+    <p class="tagline">Extracurriculars on a global level.</p>
+    <p class="lede">Clubs are small groups with a mentor and a goal. Make friends, build something real, and end up with a record of work you can show anyone. Clubs Intern, our paid version at $20 a year, is an alternative to traditional internships for people who don't live close to their preferred companies or haven't had the chance to go there in person: a more convenient, automated version you can start today.</p>
+    <div class="hero-cta">
+      <button class="btn" data-open="member">Join the waitlist</button>
+      <span>Launching soon. Join the waitlist for early access. Under 18? Use a parent or guardian's email.</span>
+    </div>
+
+    <div class="board" id="discover">
+      <h2>What are you into?</h2>
+      <div class="chips" id="chips" role="group" aria-label="Interests"></div>
+      <p class="status" id="status" aria-live="polite"></p>
+      <div class="results" id="results"></div>
+
+      <div class="teamup" id="teamup">
+        <div class="tu-head">
+          <h3>Clubs can team up</h3>
+          <span class="pill mid">Coming at launch</span>
+        </div>
+        <p>Join clubs, request partnerships with other clubs for interclub projects, find like clubs and form societies, and share credits collectively.</p>
+        <div class="tu-thread" id="tuThread" role="log" aria-live="polite">
+          <div class="tu-row left" id="tuA"><div class="tu-bub pink"><small id="tuLabel">Animation club</small>We're finishing a three-minute animated short called "Moonlit Run". Could your club create the music for it?</div></div>
+          <div class="tu-row right" id="tuB" hidden><div class="tu-bub mint"><small>Music club</small>Yes! We'd love to score it. Let's share the credit.</div></div>
+          <div class="tu-done" id="tuC" hidden><b>Partnered: original score for "Moonlit Run"</b><span>Credit is shared by every member of both clubs.</span></div>
+        </div>
+        <div class="tu-foot"><button class="btn small" id="tuBtn" type="button">Send partnership request</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Hang out and get things done in the same place</h2>
+    <div class="pair">
+      <div>
+        <h3>Friends and progress together</h3>
+        <p>Chat apps are great for friends, but nothing gets made. Courses can offer no sense of direction at times, and they don't encourage active participation the way clubs do. In Clubs you work toward a goal with a small group who care about the same thing, so making friends and making progress happen at once.</p>
+      </div>
+      <div>
+        <h3>Clubs Intern: an alternative to traditional internships</h3>
+        <p>For people who don't live close to their preferred companies, or haven't had the chance to go there in person, a traditional internship is out of reach. Clubs Intern, at $20 a year, is a more convenient, automated version. A club gives you a real project, a mentor who works in the field, deadlines, and feedback, then a verified record of what you did. It isn't a job. It's real project experience you can start today, wherever you live, and Clubs Intern automates your log and turns it into a detailed record of your work and experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blueband" id="how">
+  <div class="wrap">
+    <h2>From sign-up to your first finished project</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><h3>Sign up</h3><p>Create your account. If you're under 18, a parent or guardian approves it.</p></li>
+      <li><span class="n">2</span><h3>Find a club</h3><p>Pick your interests and see clubs that fit, each with a goal, a mentor, and a clear way in.</p></li>
+      <li><span class="n">3</span><h3>Join</h3><p>Some clubs are open to all. Others ask for a short application or a level you've earned.</p></li>
+      <li><span class="n">4</span><h3>Do the work</h3><p>Hit weekly milestones with your group and log what you made. With Clubs Intern, Clubs AI drafts the log for you.</p></li>
+      <li><span class="n">5</span><h3>Get it verified</h3><p>Your mentor checks your work. It goes on your profile, and you decide who sees it.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>A record that carries weight</h2>
+    <div class="trust-grid">
+      <div><h3>Published standards</h3><p>Every level is written down in plain terms, so a Level 3 means the same thing in every club.</p></div>
+      <div><h3>Named, vetted mentors</h3><p>Mentors are identified, checked, and accountable for the work they verify. A mentor's employer is shown for context. It isn't an endorsement unless the company has agreed to one.</p></div>
+      <div><h3>Credentials you can check</h3><p>Each verified record names the mentor who checked it, their role, and their organization, with a link anyone can open to confirm it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="inside" id="inside">
+  <div class="wrap">
+    <h2>See how it works inside</h2>
+    <div class="inside-grid">
+      <div class="tabs" role="tablist" aria-label="App screens" id="tabs"></div>
+      <div class="phone-wrap">
+        <div class="phone" aria-label="Clubs app preview">
+
+          <div class="ph-screen on" data-s="find">
+            <h3 class="ph-h">Find a club</h3>
+            <input class="ph-search" type="search" placeholder="Search clubs or skills" aria-label="Search clubs or skills">
+            <div class="ph-chips"><span class="on">Coding</span><span>Beginner</span><span>English</span><span>Evenings</span></div>
+            <div class="ph-item blue"><b>Build a mobile game</b><small>Amara O., software engineer</small><em>Open to all</em></div>
+            <div class="ph-item sun"><b>Build a line-following robot</b><small>Led by a partner company</small><em>Short application</em></div>
+            <div class="ph-item pink"><b>Pitch a tiny business idea</b><small>Sofia L., startup founder</small><em>Short application</em></div>
+          </div>
+
+          <div class="ph-screen" data-s="club">
+            <div class="ph-hero">
+              <h3>Build a mobile game</h3>
+              <p>Goal: ship a playable game by week 6.</p>
+              <div class="ph-mentor"><div class="av">AO</div><div><b>Amara O.</b><br>Software engineer, verified mentor</div></div>
+            </div>
+            <b>Milestones</b>
+            <div class="bar" aria-hidden="true"><i class="f"></i><i class="f"></i><i></i><i></i></div>
+            <ul class="ph-list">
+              <li><b>Pick your idea</b><span>Done</span></li>
+              <li class="now"><b>Build your first level</b><span>This week</span></li>
+              <li><b>Playtest with the group</b><span>Week 4</span></li>
+              <li><b>Demo day</b><span>Week 6</span></li>
+            </ul>
+            <b>How to join</b>
+            <p class="ph-note">No experience needed. Send a 60-second intro about what you'd like to build.</p>
+            <button class="ph-btn" type="button">Join club</button>
+          </div>
+
+          <div class="ph-screen" data-s="partner">
+            <h3 class="ph-h">Partner clubs</h3>
+            <span class="pill mid">Coming at launch</span>
+            <div class="ph-item pink" style="margin-top:12px"><b>Animation club</b><small>Your club</small></div>
+            <div class="ph-item sun"><b>Music club</b><small>Led by Priya S., music producer</small><em>Open to partnerships</em></div>
+            <b>Project</b>
+            <p class="ph-note">Original score for our short film, "Moonlit Run".</p>
+            <label class="ph-note" for="pMsg">Your message</label>
+            <textarea id="pMsg" class="ph-area" rows="4">We're finishing a three-minute animated short and need music for each scene. Can your members compose it?</textarea>
+            <p class="ph-note">Credit is shared by both clubs on every member's profile.</p>
+            <button class="ph-btn" type="button" id="pSend">Send request</button>
+            <div class="sent" id="pSent" hidden><b>Request sent</b><p class="ph-note">The music club's mentor will review it.</p><span class="pill low">Waiting for reply</span></div>
+            <p class="ph-note" style="margin-top:14px">Also at launch: find like clubs and form a society.</p>
+          </div>
+
+          <div class="ph-screen" data-s="log">
+            <h3 class="ph-h">This week</h3>
+            <b>Build your first level</b>
+            <div class="seg" role="group" aria-label="Plan">
+              <button type="button" class="on" data-plan="plus">Clubs Intern</button>
+              <button type="button" data-plan="free">Free</button>
+            </div>
+            <div class="upload">Uploaded: level1-demo.mp4</div>
+            <div id="freeBox" hidden>
+              <label class="ph-note" for="freeText">What did you do this week?</label>
+              <textarea id="freeText" class="ph-area" rows="4" placeholder="Describe what you built and what you learned"></textarea>
+              <button class="ph-btn" type="button" id="freeSave">Save entry</button>
+              <p class="ph-note">On the free plan you write your own log. Clubs Intern drafts it for you from your upload.</p>
+            </div>
+            <div id="draftBox">
+              <div class="draft">
+                <b>Draft from your upload</b> <span class="pill mid">Clubs Intern</span>
+                <p id="draftText">Built level 1 with jumping, coins, and a score counter. Fixed a bug where the player fell through platforms.</p>
+                <div class="tags"><span>Game logic</span><span>Debugging</span></div>
+                <div class="row">
+                  <button class="ph-btn" type="button" id="confirmBtn">Confirm entry</button>
+                  <button class="ph-btn ghost" type="button" id="editBtn">Edit draft</button>
+                </div>
+              </div>
+              <p class="ph-note">Check that it says what you did. You confirm, then your mentor verifies.</p>
+            </div>
+            <div class="sent" id="sentBox" hidden>
+              <b>Entry saved</b>
+              <p class="ph-note">Sent to Amara for review.</p>
+              <span class="pill low">Self-logged, waiting for mentor</span>
+            </div>
+          </div>
+
+          <div class="ph-screen" data-s="profile">
+            <div class="prof-top"><div class="av">JK</div><div><h3 style="font-size:1.25rem">Jordan K.</h3><span>Coding level 2, 3-week streak</span></div></div>
+            <div class="entry"><b>Playtest report</b><small>Build a mobile game, week 4</small><span class="pill ok">Mentor-verified</span></div>
+            <div class="entry"><b>First level</b><small>Build a mobile game, week 2</small><span class="pill mid">Peer-reacted</span></div>
+            <div class="entry"><b>Game idea</b><small>Build a mobile game, week 1</small><span class="pill low">Self-logged</span></div>
+            <div class="outline">
+              <b>Experience outline</b> <span class="pill mid">Clubs Intern</span>
+              <p><b>Build a mobile game</b>, 6 weeks<br>Skills: game logic, debugging, playtesting<br>Verified: 2 of 4 milestones<br>Verifier: Amara O., software engineer</p>
+            </div>
+            <p class="ph-note" id="shareNote">Private until you choose to share.</p>
+            <button class="ph-btn ghost" type="button" id="shareBtn">Share profile</button>
+          </div>
+
+          <div class="ph-nav" id="phNav">
+            <button type="button" data-s="find">Find</button>
+            <button type="button" data-s="club">Club</button>
+            <button type="button" data-s="partner">Partner</button>
+            <button type="button" data-s="log">Log</button>
+            <button type="button" data-s="profile">Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="wrap">
+    <h2>Try Clubs free. Go further with Clubs Intern.</h2>
+    <div class="plans">
+      <div class="plan free">
+        <h3>Free</h3>
+        <ul>
+          <li>Find and join clubs</li>
+          <li>Weekly milestones and mentor feedback</li>
+          <li>Mentor verification of your work, always free</li>
+          <li>Write your own progress log</li>
+        </ul>
+      </div>
+      <div class="plan plus">
+        <h3>Clubs Intern</h3>
+        <p>Clubs Intern is the paid version: a more convenient, automated alternative to a traditional internship, for people who don't live close to their preferred companies or haven't had the chance to go there in person. Clubs AI logs your work for you and turns it into a detailed, shareable record of your experience.</p>
+        <ul>
+          <li>Find and join internships</li>
+          <li>Drafts each log entry from what you upload</li>
+          <li>Builds a detailed outline of your work and experience</li>
+          <li>Creates a portfolio and public link that shows who verified each milestone</li>
+          <li>Tags the skills your work shows</li>
+          <li>Summarizes your growth over time</li>
+        </ul>
+        <p class="price"><span class="amt">$20</span> a year</p>
+        <p class="price-note">Planned price for Clubs Intern, which may change before launch. Waitlist members get a founding-member discount.</p>
+        <button class="btn sun" data-open="member">Join the waitlist</button>
+      </div>
+    </div>
+    <p class="plan-note">Clubs AI drafts and suggests. You confirm every entry, and your mentor verifies it.</p>
+    <p class="plan-note">Can't afford Clubs Intern? Partner companies and sponsors help fund seats for students who need them.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two">
+    <div>
+      <h2>Safety is built in</h2>
+    </div>
+    <ul class="checks">
+      <li>Every mentor is vetted before they run a club.</li>
+      <li>Members talk in group spaces. There are no private messages between adults and minors.</li>
+      <li>A parent or guardian approves accounts for members under 18.</li>
+      <li>Work stays private until the member chooses to share it.</li>
+      <li>Anyone can report a concern, and a person reviews every report.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Coming at launch</h2>
+    <div class="soon">
+      <div><h3>Club partnerships and societies</h3><p>Join clubs, request partnerships with other clubs for interclub projects, find like clubs and form societies, and share credits collectively.</p></div>
+      <div><h3>Tutorials for complete beginners</h3><p>Short guided projects that lead into a beginner club, so nobody needs experience to start.</p></div>
+      <div><h3>Activity suggestions</h3><p>Tell Clubs AI what you like, and it suggests clubs and first steps.</p></div>
+      <div><h3>More languages</h3><p>Clubs in more languages, with the app translated where members need it.</p></div>
+      <div><h3>Local and international clubs</h3><p>Find clubs in your region, or join clubs from around the world for global reach. We only ask for your country or region, never your exact location.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="wrap">
+    <h2>Partner companies and institutions</h2>
+    <p class="partner-intro" id="partnerIntro">Organizations that sponsor clubs and let their people mentor real projects.</p>
+    <ul class="partner-list" id="partnerList"></ul>
+    <button class="btn" data-open="partner">Become a partner</button>
+  </div>
+</section>
+
+<section class="dark" id="mentors">
+  <div class="wrap">
+    <h2 style="max-width:14ch;margin-bottom:48px">Teach what you know</h2>
+    <div class="two">
+      <div class="col">
+        <h3>Mentors</h3>
+        <p>Lead a club, set the goal, and choose who joins. You can start with a reference from a professional in your field, or by representing a partner company.</p>
+        <p>We also verify your identity and ask you to sign our code of conduct.</p>
+        <p>You get a public mentor profile, ready-made club templates, and a weekly summary of each member's work, so verifying takes minutes.</p>
+        <button class="btn sun" data-open="mentor">Apply to mentor</button>
+      </div>
+      <div class="col">
+        <h3>Partner companies</h3>
+        <p>Register your organization, sponsor clubs, and let your people mentor real projects. You stand behind the mentors who represent you.</p>
+        <p>Projects are practice challenges. Students never do unpaid work your company uses.</p>
+        <p>Your sponsorship can also help fund Clubs Intern seats for students who can't afford them.</p>
+        <button class="btn light" data-open="partner">Register your organization</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Be first in line when Clubs opens.</h2>
+    <button class="btn" data-open="member">Join the waitlist</button>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Clubs and mentors shown here are examples of what's coming. <button type="button" class="linkbtn" data-privacy>Privacy notice</button></div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg">
+    <button class="x" type="button" id="dlgClose">Close</button>
+    <div id="dlgFormWrap">
+      <h2 id="dlgTitle"></h2>
+      <p id="dlgSub"></p>
+      <form id="dlgForm">
+        <label>Name <input id="fName" type="text" required autocomplete="name"></label>
+        <label>Email <input id="fEmail" type="email" required autocomplete="email"></label>
+        <label>I'm joining as
+          <select id="fRole" required>
+            <option value="student">A student</option>
+            <option value="parent">A parent or guardian</option>
+            <option value="mentor">A mentor</option>
+            <option value="organization">An organization</option>
+          </select>
+        </label>
+        <label id="extraWrap"><span id="extraLabel"></span><input id="extraInput" type="text" autocomplete="organization"></label>
+        <div class="hp" aria-hidden="true"><label>Website <input id="fWebsite" type="text" tabindex="-1" autocomplete="off"></label></div>
+        <label class="consent"><input id="fConsent" type="checkbox" required><span>Email me a confirmation and when Clubs launches. I've read the <button type="button" class="linkbtn" data-privacy>privacy notice</button>.</span></label>
+        <p class="note" id="dlgNote"></p>
+        <p class="err" id="dlgErr" role="alert" hidden></p>
+        <button class="btn" type="submit" id="dlgSubmit">Join the waitlist</button>
+      </form>
+    </div>
+    <div id="dlgDone" hidden>
+      <h2>You're on the list.</h2>
+      <p>We'll send a confirmation to your email. If it's missing, check your spam folder. We'll email you again when Clubs launches.</p>
+      <button class="btn" type="button" id="dlgDoneClose" style="margin-top:20px">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- DRAFT privacy notice: have it reviewed before launch, and set CONTACT_EMAIL in the script below. -->
+<dialog id="priv" aria-labelledby="privTitle">
+  <div class="dlg">
+    <button class="x" type="button" id="privClose">Close</button>
+    <h2 id="privTitle">Privacy notice</h2>
+    <div class="privtext">
+      <p><b>What we collect.</b> Your name, your email address, whether you're a student, parent or guardian, mentor, or organization, and any optional details you type in, like an organization name. We also note which link or club card you came from.</p>
+      <p><b>Why.</b> To send you a confirmation, email you when Clubs launches, and count how many people are interested.</p>
+      <p><b>Who sees it.</b> Only the Clubs team. We don't sell your information or use it for advertising.</p>
+      <p><b>Where it's kept.</b> In a private spreadsheet that only the Clubs team can open.</p>
+      <p><b>If you're under 18.</b> Please use a parent or guardian's email address and check with them before you sign up.</p>
+      <p><b>Your choices.</b> Email <a id="privMail" href="#"></a> any time to see, fix, or delete your information, or to leave the waitlist.</p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* ---------- Settings: edit these two lines ---------- */
+const WAITLIST_URL = "https://script.google.com/macros/s/AKfycbziPXdvaUYP1u4iVo9gWjXIxdJXLiHQAq7beaZbABCSFIYq1CwqbGpXc_A7zpXC8TkQ/exec";
+const CONTACT_EMAIL = "danielokperin@gmail.com";
+
+/* ---------- Sample data ---------- */
+const INTERESTS = [
+  ["coding","Coding","blue"],["debate","Debate","sun"],["music","Music","pink"],
+  ["design","Design","mint"],["robotics","Robotics","blue"],["film","Film","pink"],
+  ["writing","Writing","sun"],["science","Science","mint"],["business","Business","sun"],["chess","Chess","blue"]
+];
+const TONE = Object.fromEntries(INTERESTS.map(([id,,t]) => [id,t]));
+const CLUBS = [
+  {i:"coding",  t:"Build a mobile game",         g:"Ship a playable game",                    lvl:"Beginner",     w:6, s:4,  m:"Led by Amara O., software engineer",  e:"Open to all"},
+  {i:"debate",  t:"Global debate league",        g:"Win your bracket in the final round",     lvl:"Intermediate", w:8, s:6,  m:"Led by Lucas R., debate coach",       e:"Short application"},
+  {i:"music",   t:"Write and record a track",    g:"Release one finished song",               lvl:"Beginner",     w:5, s:8,  m:"Led by Priya S., music producer",     e:"Open to all"},
+  {i:"design",  t:"Design a brand from scratch", g:"Present a full brand kit",                lvl:"Beginner",     w:6, s:5,  m:"Led by Marta K., brand designer",     e:"Open to all"},
+  {i:"robotics",t:"Build a line-following robot",g:"Get your robot through the course",       lvl:"Beginner",     w:8, s:3,  m:"Led by a partner company",            e:"Short application"},
+  {i:"film",    t:"Make a three-minute short",   g:"Screen your film at the showcase",        lvl:"Beginner",     w:6, s:7,  m:"Led by Diego M., filmmaker",          e:"Open to all"},
+  {i:"writing", t:"Publish a short story zine",  g:"Finish and publish a shared zine",        lvl:"Beginner",     w:5, s:10, m:"Led by Nadia H., editor",             e:"Open to all"},
+  {i:"science", t:"Run your own experiment",     g:"Present results from real data",          lvl:"Intermediate", w:6, s:4,  m:"Led by Dr. Kwame B., lab researcher", e:"Level 2 needed"},
+  {i:"business",t:"Pitch a tiny business idea",  g:"Pitch to a panel of founders",            lvl:"Beginner",     w:6, s:6,  m:"Led by Sofia L., startup founder",    e:"Short application"},
+  {i:"chess",   t:"Climb 200 rating points",     g:"Gain 200 rating points",                  lvl:"Intermediate", w:8, s:5,  m:"Led by Ivan P., chess coach",         e:"Level 2 needed"}
+];
+const FEATURED = ["coding","music","design"];
+
+/* ---------- Club finder ---------- */
+const picked = new Set();
+const chipsEl = document.getElementById("chips");
+const resultsEl = document.getElementById("results");
+const statusEl = document.getElementById("status");
+
+INTERESTS.forEach(([id,label,tone]) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip " + tone;
+  b.textContent = label;
+  b.setAttribute("aria-pressed","false");
+  b.addEventListener("click", () => {
+    picked.has(id) ? picked.delete(id) : picked.add(id);
+    b.setAttribute("aria-pressed", picked.has(id) ? "true" : "false");
+    render();
+  });
+  chipsEl.appendChild(b);
+});
+
+function card(c){
+  const el = document.createElement("article");
+  el.className = "club " + TONE[c.i];
+  el.innerHTML =
+    `<h3>${c.t}</h3>
+     <p>Goal: ${c.g}.</p>
+     <p class="facts">${c.lvl} level, ${c.w} weeks, ${c.s} spots left.<br>${c.m}.</p>
+     <div class="foot"><b>${c.e}</b><button class="btn small" type="button" data-open="member" data-club="${c.t}">Join waitlist</button></div>`;
+  return el;
+}
+
+function render(){
+  const list = picked.size ? CLUBS.filter(c => picked.has(c.i)) : CLUBS.filter(c => FEATURED.includes(c.i));
+  statusEl.textContent = picked.size
+    ? `${list.length} ${list.length === 1 ? "club matches" : "clubs match"} what you picked.`
+    : "Popular clubs right now. Pick your interests to see clubs that fit.";
+  resultsEl.replaceChildren(...list.map(card));
+}
+render();
+
+/* ---------- App preview ---------- */
+const SCREENS = {
+  find:    ["Find",    "Start with what you're into. Every club shows its goal, mentor, and entry rule up front, so you know if it fits before you apply."],
+  club:    ["Club",    "One goal, a short list of milestones, and a clear way in. Nothing is hidden behind a chat room."],
+  partner: ["Partner", "Coming at launch. Ask another club to team up on an interclub project, then share credit for what you make together."],
+  log:     ["Log",     "Free members write their own log. With Clubs Intern, Clubs AI drafts it from what you upload. Either way, you confirm it and your mentor verifies it."],
+  profile: ["Profile", "Your work over time, with a label showing who checked it. Clubs Intern adds a neat outline of your work and experience. Private until you choose to share."]
+};
+const tabsEl = document.getElementById("tabs");
+Object.entries(SCREENS).forEach(([id,[title,desc]]) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "tab"; b.dataset.s = id;
+  b.setAttribute("role","tab");
+  b.innerHTML = `<strong>${title}</strong><span>${desc}</span>`;
+  b.addEventListener("click", () => show(id));
+  tabsEl.appendChild(b);
+});
+document.querySelectorAll("#phNav button").forEach(b => b.addEventListener("click", () => show(b.dataset.s)));
+
+function show(id){
+  document.querySelectorAll(".ph-screen").forEach(s => s.classList.toggle("on", s.dataset.s === id));
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.s === id ? "true" : "false"));
+  document.querySelectorAll("#phNav button").forEach(b => b.setAttribute("aria-current", b.dataset.s === id ? "true" : "false"));
+}
+show("find");
+
+/* log screen: edit + confirm */
+const draftText = document.getElementById("draftText");
+const editBtn = document.getElementById("editBtn");
+editBtn.addEventListener("click", () => {
+  const editing = draftText.getAttribute("contenteditable") === "true";
+  draftText.setAttribute("contenteditable", editing ? "false" : "true");
+  editBtn.textContent = editing ? "Edit draft" : "Done editing";
+  if(!editing) draftText.focus();
+});
+document.getElementById("confirmBtn").addEventListener("click", () => {
+  document.getElementById("draftBox").hidden = true;
+  document.getElementById("sentBox").hidden = false;
+});
+
+/* log screen: Free / Clubs Intern switch */
+function setPlan(p){
+  document.querySelectorAll(".seg button").forEach(b => b.classList.toggle("on", b.dataset.plan === p));
+  document.getElementById("draftBox").hidden = p !== "plus";
+  document.getElementById("freeBox").hidden = p !== "free";
+  document.getElementById("sentBox").hidden = true;
+}
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setPlan(b.dataset.plan)));
+document.getElementById("freeSave").addEventListener("click", () => {
+  document.getElementById("freeBox").hidden = true;
+  document.getElementById("sentBox").hidden = false;
+});
+
+/* profile screen: share */
+document.getElementById("shareBtn").addEventListener("click", e => {
+  const note = document.getElementById("shareNote");
+  const on = e.target.textContent === "Stop sharing";
+  e.target.textContent = on ? "Share profile" : "Stop sharing";
+  note.textContent = on ? "Private until you choose to share." : "Shared through a link you control.";
+});
+
+/* ---------- Theme toggle ---------- */
+const themeBtn = document.getElementById("themeToggle");
+function paintTheme(t){
+  themeBtn.textContent = t === "dark" ? "Light" : "Dark";
+  themeBtn.setAttribute("aria-label", t === "dark" ? "Switch to light mode" : "Switch to dark mode");
+}
+paintTheme(document.documentElement.getAttribute("data-theme") || "light");
+themeBtn.addEventListener("click", () => {
+  const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  paintTheme(next);
+  try{ localStorage.setItem("clubs-theme", next); }catch(_){}
+});
+
+/* ---------- Partner companies and institutions ---------- */
+/* Add only organizations that have agreed to be listed, for example {name:"Example Co", type:"Company"} */
+const PARTNERS = [];
+(function(){
+  const ul = document.getElementById("partnerList");
+  const intro = document.getElementById("partnerIntro");
+  if(PARTNERS.length){
+    PARTNERS.forEach(p => {
+      const li = document.createElement("li");
+      li.textContent = p.name;
+      if(p.type){ const sm = document.createElement("small"); sm.textContent = p.type; li.appendChild(sm); }
+      ul.appendChild(li);
+    });
+  } else {
+    for(let i = 0; i < 6; i++){
+      const li = document.createElement("li");
+      li.className = "open";
+      li.textContent = "Your organization here";
+      const sm = document.createElement("small");
+      sm.textContent = "Open partner spot";
+      li.appendChild(sm);
+      ul.appendChild(li);
+    }
+    intro.textContent = "We're signing our first partners. Be one of them.";
+  }
+})();
+
+/* ---------- Club team-up demo ---------- */
+const REDUCE = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tuBtn = document.getElementById("tuBtn");
+const tuA = document.getElementById("tuA"), tuB = document.getElementById("tuB"), tuC = document.getElementById("tuC");
+const tuLabel = document.getElementById("tuLabel");
+let tuTimers = [];
+function tuReset(){
+  tuTimers.forEach(clearTimeout); tuTimers = [];
+  tuB.hidden = true; tuC.hidden = true;
+  tuA.classList.remove("sent");
+  tuLabel.textContent = "Animation club";
+  tuBtn.textContent = "Send partnership request";
+  tuBtn.disabled = false;
+}
+tuBtn.addEventListener("click", () => {
+  if(tuBtn.textContent === "Replay"){ tuReset(); return; }
+  tuA.classList.add("sent");
+  tuLabel.textContent = "Animation club, request sent";
+  tuBtn.disabled = true;
+  tuTimers.push(setTimeout(() => { tuB.hidden = false; }, REDUCE ? 0 : 900));
+  tuTimers.push(setTimeout(() => { tuC.hidden = false; tuBtn.textContent = "Replay"; tuBtn.disabled = false; }, REDUCE ? 0 : 1900));
+});
+document.getElementById("pSend").addEventListener("click", e => {
+  e.target.hidden = true;
+  document.getElementById("pSent").hidden = false;
+});
+
+/* ---------- Waitlist dialog ---------- */
+const dlg = document.getElementById("dlg");
+const priv = document.getElementById("priv");
+const form = document.getElementById("dlgForm");
+const roleSel = document.getElementById("fRole");
+const extraWrap = document.getElementById("extraWrap");
+const extraInput = document.getElementById("extraInput");
+const errEl = document.getElementById("dlgErr");
+const submitBtn = document.getElementById("dlgSubmit");
+let currentClub = "";
+
+const ROLE_CFG = {
+  student:      {title:"Join the waitlist", sub:"Be first in line when Clubs opens.", extra:null, note:"Under 18? Please use a parent or guardian's email address."},
+  parent:       {title:"Join the waitlist", sub:"Be first in line when Clubs opens.", extra:null, note:"We'll write to you when Clubs is ready."},
+  mentor:       {title:"Join as a mentor", sub:"Lead a club, set the goal, and choose who joins.", extra:{label:"Your field or company (optional)", required:false}, note:"After launch you'll need a reference or proof that you represent a partner company, an ID check, and our code of conduct."},
+  organization: {title:"Register your organization's interest", sub:"Sponsor clubs and let your people mentor.", extra:{label:"Organization name", required:true}, note:"We'll contact you about registering your organization and how your mentors are vouched for."}
+};
+const MODE_ROLE = {member:"student", mentor:"mentor", partner:"organization"};
+
+function applyRole(role){
+  const c = ROLE_CFG[role];
+  document.getElementById("dlgTitle").textContent = c.title;
+  document.getElementById("dlgSub").textContent = currentClub ? `Be first in line for ${currentClub}.` : c.sub;
+  document.getElementById("dlgNote").textContent = c.note;
+  if(c.extra){
+    extraWrap.hidden = false;
+    document.getElementById("extraLabel").textContent = c.extra.label;
+    extraInput.required = c.extra.required;
+  } else {
+    extraWrap.hidden = true;
+    extraInput.required = false;
+    extraInput.value = "";
+  }
+}
+roleSel.addEventListener("change", () => applyRole(roleSel.value));
+
+function openDlg(mode, club){
+  currentClub = club || "";
+  form.reset();
+  errEl.hidden = true;
+  roleSel.value = MODE_ROLE[mode] || "student";
+  applyRole(roleSel.value);
+  document.getElementById("dlgFormWrap").hidden = false;
+  document.getElementById("dlgDone").hidden = true;
+  dlg.showModal();
+}
+
+function getSource(){
+  try{
+    const q = new URLSearchParams(location.search);
+    const s = q.get("utm_source") || q.get("ref");
+    if(s) return s;
+    if(document.referrer) return new URL(document.referrer).hostname;
+  }catch(_){}
+  return "direct";
+}
+
+function showErr(msg){ errEl.textContent = msg; errEl.hidden = false; }
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  errEl.hidden = true;
+  if(document.getElementById("fWebsite").value){ /* bot trap */
+    document.getElementById("dlgFormWrap").hidden = true;
+    document.getElementById("dlgDone").hidden = false;
+    return;
+  }
+  if(!WAITLIST_URL || WAITLIST_URL.includes("PASTE_YOUR")){
+    showErr("The waitlist isn't connected yet. Add your Apps Script link in the page settings.");
+    return;
+  }
+  const data = new URLSearchParams({
+    name: document.getElementById("fName").value.trim(),
+    email: document.getElementById("fEmail").value.trim(),
+    role: roleSel.value,
+    extra: extraInput.value.trim(),
+    club: currentClub,
+    source: getSource(),
+    consent: "yes"
+  });
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending";
+  try{
+    await fetch(WAITLIST_URL, {method:"POST", mode:"no-cors", body:data});
+    document.getElementById("dlgFormWrap").hidden = true;
+    document.getElementById("dlgDone").hidden = false;
+  }catch(_){
+    showErr("We couldn't send that. Check your connection and try again.");
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Join the waitlist";
+  }
+});
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-open]");
+  if(t){ openDlg(t.dataset.open, t.dataset.club); return; }
+  if(e.target.closest("[data-privacy]")) priv.showModal();
+});
+const mail = document.getElementById("privMail");
+mail.textContent = CONTACT_EMAIL;
+mail.href = "mailto:" + CONTACT_EMAIL;
+
+document.getElementById("dlgClose").addEventListener("click", () => dlg.close());
+document.getElementById("dlgDoneClose").addEventListener("click", () => dlg.close());
+document.getElementById("privClose").addEventListener("click", () => priv.close());
+dlg.addEventListener("click", e => { if(e.target === dlg) dlg.close(); });
+priv.addEventListener("click", e => { if(e.target === priv) priv.close(); });
+</script>
+</body>
+</html>
